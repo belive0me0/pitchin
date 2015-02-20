@@ -1,17 +1,17 @@
 package com.pitch.view.login;
 
 import com.pitch.view.R;
-import com.pitch.view.R.id;
-import com.pitch.view.R.layout;
-import com.pitch.view.R.menu;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
 
 public class RegisterActivity extends Activity {
-
+	private EditText mInputFirstName, mInputLastName, mInputEmail, mInputPassword;
+	private Button mRegisterButton;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

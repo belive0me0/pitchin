@@ -6,6 +6,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.pitch.model.utils.UserFunctions;
 import com.pitch.view.MainActivity;
 import com.pitch.view.MyParcelable;
 import com.pitch.view.R;
@@ -18,7 +22,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,6 +40,7 @@ public class LoginActivity extends Activity {
 	
 	private final String TEMP_USERNAME = "username";
 	private final String TEMP_PASSWORD = "1234";
+	private static String KEY_SUCCESS = "success";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -163,7 +167,7 @@ public class LoginActivity extends Activity {
 		
 	}
 	
-	private class ProcessLogin extends AsyncTask {
+	private class ProcessLogin extends AsyncTask<String, Void, JSONObject> {
 		private ProgressDialog mDialog;
 		private String mEmail, mPassword;
 		
@@ -173,7 +177,7 @@ public class LoginActivity extends Activity {
 			mEmail = mEmailView.getText().toString();
 			mPassword = mPasswordView.getText().toString();
 			mDialog = new ProgressDialog(LoginActivity.this);
-			mDialog.setTitle("Contactinv Servers");
+			mDialog.setTitle("Contacting Servers");
 			mDialog.setMessage("Logging in...");
 			mDialog.setIndeterminate(false);
 			mDialog.setCancelable(true);
@@ -181,9 +185,23 @@ public class LoginActivity extends Activity {
 		}
 		
 		@Override
-		protected Object doInBackground(Object... arg0) {
-			return null;
+		protected JSONObject doInBackground(String... args) {
+			UserFunctions userFunction = new UserFunctions();
+			JSONObject json = userFunction.loginUser(mEmail, mPassword);
+			return json;
 		}
+
+		@Override
+		protected void onPostExecute(JSONObject json) {
+			try {
+				if(json.getString(KEY_SUCCESS) != null) {
+					String res = json.getString(KEY_SUCCESS);
+				}
+			} catch (JSONException jsone) {
+				jsone.printStackTrace();
+			}
+		}
+
 		
 	}
 	

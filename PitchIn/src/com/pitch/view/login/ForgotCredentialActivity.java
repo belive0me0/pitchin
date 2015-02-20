@@ -1,9 +1,6 @@
 package com.pitch.view.login;
 
 import com.pitch.view.R;
-import com.pitch.view.R.id;
-import com.pitch.view.R.layout;
-import com.pitch.view.R.menu;
 
 import android.app.Activity;
 import android.os.Bundle;
